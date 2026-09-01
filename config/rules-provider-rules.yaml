@@ -1,0 +1,39 @@
+# 与 config/rule-providers.yaml 配套使用
+# PROXY 请替换为你的实际代理策略组名称。
+
+rules:
+  # 广告与跟踪优先拦截
+  - RULE-SET,ads,REJECT
+
+  # 局域网 / 私有网络
+  - RULE-SET,private,DIRECT
+  - GEOIP,PRIVATE,DIRECT,no-resolve
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,169.254.0.0/16,DIRECT,no-resolve
+  - IP-CIDR6,fc00::/7,DIRECT,no-resolve
+  - IP-CIDR6,fe80::/10,DIRECT,no-resolve
+
+  # 明确需要代理的国际服务
+  - RULE-SET,openai,PROXY
+  - RULE-SET,telegram,PROXY
+  - RULE-SET,youtube,PROXY
+  - RULE-SET,google,PROXY
+  - RULE-SET,github,PROXY
+  - RULE-SET,twitter,PROXY
+  - RULE-SET,facebook,PROXY
+  - RULE-SET,instagram,PROXY
+  - RULE-SET,netflix,PROXY
+  - RULE-SET,spotify,PROXY
+  - RULE-SET,reddit,PROXY
+  - RULE-SET,discord,PROXY
+  - RULE-SET,tiktok,PROXY
+
+  # 中国大陆服务直连
+  - RULE-SET,cn,DIRECT
+  - GEOIP,CN,DIRECT,no-resolve
+
+  # 其余未知流量默认代理
+  - MATCH,PROXY
