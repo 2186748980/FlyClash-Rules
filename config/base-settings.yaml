@@ -1,7 +1,7 @@
 # 可选：如果你的 FlyClash / Mihomo 配置没有正确启用 geosite/geodata，可参考这里。
 # 不要把本文件整段覆盖到现有配置；按需合并。
 
-gedata-mode: true
+geodata-mode: true
 geodata-loader: standard
 geox-url:
   geoip: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat"
