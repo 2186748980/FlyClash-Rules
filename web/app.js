@@ -1,0 +1,1 @@
+document.getElementById('copy').addEventListener('click',async()=>{const text=document.getElementById('rules').textContent;try{await navigator.clipboard.writeText(text);document.getElementById('copy').textContent='已复制';setTimeout(()=>document.getElementById('copy').textContent='复制全部',1200)}catch(e){alert('复制失败，请长按规则内容手动复制')}});
