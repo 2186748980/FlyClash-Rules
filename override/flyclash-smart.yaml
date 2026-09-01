@@ -1,0 +1,165 @@
+# FlyClash Smart Override
+#
+# 用途：给现有 FlyClash / Mihomo 订阅增加一套通用分流与广告拦截能力。
+# 不包含任何机场节点、订阅 URL、账号或密钥。
+#
+# 设计：
+# - 新建独立策略组「⚡ FlyClash智能代理」，自动包含现有所有代理节点。
+# - 广告/跟踪 -> REJECT
+# - 私有网络 -> DIRECT
+# - OpenAI / Google / YouTube / Telegram / GitHub 等 -> 代理
+# - 中国大陆 -> DIRECT
+# - 其余未匹配流量 -> 代理
+#
+# 注意：FlyClash 的 YAML 覆写行为取决于客户端版本。如果你的版本把 rules
+# 整段替换而不是合并，请使用本仓库 README 中的“手动合并”方案。
+
+proxy-groups:
+  - name: "⚡ FlyClash智能代理"
+    type: select
+    include-all-proxies: true
+    proxies:
+      - DIRECT
+
+rule-providers:
+  fly_ads:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.mrs"
+
+  fly_private:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"
+
+  fly_openai:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs"
+
+  fly_google:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"
+
+  fly_youtube:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"
+
+  fly_telegram:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"
+
+  fly_github:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"
+
+  fly_twitter:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.mrs"
+
+  fly_facebook:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/facebook.mrs"
+
+  fly_instagram:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/instagram.mrs"
+
+  fly_netflix:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"
+
+  fly_spotify:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/spotify.mrs"
+
+  fly_reddit:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/reddit.mrs"
+
+  fly_discord:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/discord.mrs"
+
+  fly_tiktok:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs"
+
+  fly_cn:
+    type: http
+    behavior: domain
+    format: mrs
+    interval: 86400
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"
+
+rules:
+  - RULE-SET,fly_ads,REJECT
+  - RULE-SET,fly_private,DIRECT
+  - GEOIP,PRIVATE,DIRECT,no-resolve
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,169.254.0.0/16,DIRECT,no-resolve
+  - IP-CIDR6,fc00::/7,DIRECT,no-resolve
+  - IP-CIDR6,fe80::/10,DIRECT,no-resolve
+
+  - RULE-SET,fly_openai,⚡ FlyClash智能代理
+  - RULE-SET,fly_telegram,⚡ FlyClash智能代理
+  - RULE-SET,fly_youtube,⚡ FlyClash智能代理
+  - RULE-SET,fly_google,⚡ FlyClash智能代理
+  - RULE-SET,fly_github,⚡ FlyClash智能代理
+  - RULE-SET,fly_twitter,⚡ FlyClash智能代理
+  - RULE-SET,fly_facebook,⚡ FlyClash智能代理
+  - RULE-SET,fly_instagram,⚡ FlyClash智能代理
+  - RULE-SET,fly_netflix,⚡ FlyClash智能代理
+  - RULE-SET,fly_spotify,⚡ FlyClash智能代理
+  - RULE-SET,fly_reddit,⚡ FlyClash智能代理
+  - RULE-SET,fly_discord,⚡ FlyClash智能代理
+  - RULE-SET,fly_tiktok,⚡ FlyClash智能代理
+
+  - RULE-SET,fly_cn,DIRECT
+  - GEOIP,CN,DIRECT,no-resolve
+  - MATCH,⚡ FlyClash智能代理
