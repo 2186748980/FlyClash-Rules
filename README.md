@@ -1,8 +1,30 @@
 # FlyClash-Rules
 
-面向 **FlyClash / Mihomo** 的个人分流与去广告规则仓库。
+一个面向 **Clash / Mihomo / sing-box / Karing / FlyClash / Shadowrocket / Surge / Stash / Hiddify / NekoBox** 等客户端的个人分流与去广告规则仓库。
 
 本仓库不保存任何机场节点、订阅地址、账号、密码或 API Key。
+
+## 目标
+
+同一套规则内容，按客户端提供不同的适配层。规则集尽量不写死个人机场的代理组名称，由客户端决定命中后的策略。
+
+## 客户端适配
+
+详细说明见 [`clients/README.md`](clients/README.md)。
+
+| 客户端/核心 | 推荐入口 |
+|---|---|
+| FlyClash | `rules/flyclash-essential.txt` |
+| Mihomo / Clash Meta | `config/` |
+| Clash Verge Rev | `config/`（Mihomo rule-provider） |
+| FlClash | `config/`（Mihomo rule-provider） |
+| Karing | `clients/karing/`；也可使用 sing-box 规则体系 |
+| sing-box | `clients/sing-box/` |
+| Hiddify Next | sing-box remote `.srs` 规则体系 |
+| Shadowrocket | `clients/shadowrocket/` |
+| Surge | 使用通用 RULE-SET 思路，策略在客户端指定 |
+| Stash | Mihomo/Clash `rule-providers` |
+| NekoBox | 按所使用的 Clash/Mihomo 或 sing-box 核心选择对应规则 |
 
 ## 你的 FlyClash Android 当前用法
 
@@ -10,21 +32,19 @@
 
 > 规则覆写 → 添加新规则 → 规则类型 / 匹配内容 / 目标
 
-它支持多种 Mihomo 规则类型，并且「目标」除了 `DIRECT` / `REJECT` 外，还可以使用你当前订阅已有的策略组。
+它支持多种 Mihomo 规则类型，而且「目标」除了 `DIRECT` / `REJECT` 外，还可以使用当前订阅已有的策略组。
 
-你当前提供的可用代理目标包括：
+你当前提供的代理目标包括：
 
 - `自动选择`（本仓库默认）
 - `故障转移`
 - `宝可梦`
 
-因此 `rules/flyclash-essential.txt` 已经直接使用 `自动选择`，无需再把 `PROXY` 手动替换。
+因此 `rules/flyclash-essential.txt` 已经直接使用 `自动选择`。
 
-## 推荐的手机端规则
+## FlyClash 推荐规则
 
-文件：
-
-`rules/flyclash-essential.txt`
+文件：`rules/flyclash-essential.txt`
 
 包含：
 
@@ -46,44 +66,43 @@
 
 `规则覆写 → 右上角 +`
 
-然后按照文件中的每一行添加。例如：
+例如：
 
 ```text
 DOMAIN-SUFFIX,openai.com,自动选择
 ```
 
-对应填写：
+填写：
 
 - 规则类型：`DOMAIN-SUFFIX`
 - 域名：`openai.com`
 - 目标：`自动选择`
 
-广告规则例如：
+广告规则：
 
 ```text
 DOMAIN-SUFFIX,doubleclick.net,REJECT
 ```
 
-## 为什么默认使用「自动选择」
+## 通用规则源
 
-你现有订阅已经提供 `自动选择`、`故障转移`、`宝可梦` 等代理组。
+`rules/common/` 保存不绑定策略组的基础规则内容：
 
-本仓库默认让国外服务走 `自动选择`，这样由你现有的代理组自行选择节点，不把具体国家节点写死。
+- `ai-proxy.list`：AI、Google、GitHub、Telegram、YouTube、社交与流媒体等国际服务
+- `reject.list`：常见广告与跟踪域名
 
-如果你更喜欢固定策略，可以自行把目标改成 `故障转移` 或 `宝可梦`。
+这些文件可以作为其他客户端生成/转换规则集的源数据。
 
-## Mihomo / 完整配置用户
+## Mihomo / Clash
 
-如果你的配置支持 Mihomo `rule-providers`，则推荐使用：
+如果客户端支持 Mihomo `rule-providers`，推荐使用：
 
-- `config/rule-providers.yaml`：远程规则提供器
-- `config/rules-provider-rules.yaml`：配套 `rules:`
-- `config/rules.yaml`：简洁的 GEOSITE 方案
-- `config/base-settings.yaml`：基础设置参考
+- `config/rule-providers.yaml`
+- `config/rules-provider-rules.yaml`
+- `config/rules.yaml`
+- `config/base-settings.yaml`
 
-规则源使用 MetaCubeX 的 MRS 数据，并按 24 小时自动更新。仓库本身只保存公开规则地址，不保存节点。
-
-### 远程 Rule Provider
+远程入口：
 
 ```text
 https://raw.githubusercontent.com/2186748980/FlyClash-Rules/main/config/rule-providers.yaml
@@ -95,16 +114,33 @@ https://raw.githubusercontent.com/2186748980/FlyClash-Rules/main/config/rule-pro
 https://raw.githubusercontent.com/2186748980/FlyClash-Rules/main/config/rules-provider-rules.yaml
 ```
 
+## Karing / sing-box
+
+Karing 同时支持 Clash 配置与 sing-box 路由规则，并提供自己的 rule-set 仓库；本项目提供 Karing JSON 和 sing-box JSON 适配层，不把 Karing 的 `srs` 二进制格式伪装成普通 JSON。citeturn0search0turn0search6
+
+- `clients/karing/ai-proxy.json`
+- `clients/karing/reject.json`
+- `clients/sing-box/rule-set.json`
+
+## Hiddify Next
+
+Hiddify Next 使用 sing-box 路由模型，官方配置示例使用 `route.rule_set` 的 remote `.srs` 规则集。仓库目前只提供可复用的 sing-box JSON 规则源，不把 JSON 冒充 `.srs`；以后如果增加构建流程，再生成真正的 SRS 文件。citeturn2search0turn2search1
+
+## Shadowrocket / Surge / Stash
+
+Shadowrocket 支持 `RULE-SET,<URL>,<策略>`，因此可以直接使用远程规则集思路；Surge、Stash 也采用远程规则集/Rule Provider 机制。策略名称由客户端自己的配置决定，不把 `自动选择` 等个人机场组名写进通用规则。citeturn1search0turn1search4turn1search14
+
+Shadowrocket 适配文件：
+
+`clients/shadowrocket/remote-rules.conf`
+
 ## 关于 Shadowrocket-ADBlock-Rules-Forever
 
-本项目参考 `Johnshall/Shadowrocket-ADBlock-Rules-Forever` 的国内外分流与广告过滤思路，但针对 FlyClash / Mihomo 重新组织规则，不直接把 Shadowrocket `.conf` 当作 FlyClash 配置。
+本项目参考 `Johnshall/Shadowrocket-ADBlock-Rules-Forever` 的国内外分流与广告过滤思路，但针对不同核心重新组织适配，不直接把 Shadowrocket `.conf` 当成所有客户端的配置。
 
 ## 规则来源
 
-主要远程规则数据来自 MetaCubeX `meta-rules-dat`。本仓库只引用公开规则地址，不复制私有节点或账号信息。
-
-- MetaCubeX/meta-rules-dat
-- Johnshall/Shadowrocket-ADBlock-Rules-Forever
+主要远程规则数据来自 MetaCubeX `meta-rules-dat`。Karing/sing-box 适配同时参考 KaringX 的公开规则集结构。citeturn0search6
 
 ## 安全说明
 
