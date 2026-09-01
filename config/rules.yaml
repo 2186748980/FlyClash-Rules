@@ -1,0 +1,42 @@
+# FlyClash / Mihomo rules
+#
+# 将本文件 rules: 部分合并到你自己的配置中。
+# PROXY 请替换成你的实际代理策略组名称。
+# 规则顺序很重要：REJECT / 私有网络 / 指定国际服务 / CN / GEOIP / MATCH。
+
+rules:
+  # 广告与跟踪
+  - GEOSITE,category-ads-all,REJECT
+
+  # 私有网络、局域网
+  - GEOSITE,private,DIRECT
+  - GEOIP,PRIVATE,DIRECT,no-resolve
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,169.254.0.0/16,DIRECT,no-resolve
+  - IP-CIDR6,fc00::/7,DIRECT,no-resolve
+  - IP-CIDR6,fe80::/10,DIRECT,no-resolve
+
+  # 明确走代理的国际服务
+  - GEOSITE,openai,PROXY
+  - GEOSITE,telegram,PROXY
+  - GEOSITE,youtube,PROXY
+  - GEOSITE,google,PROXY
+  - GEOSITE,github,PROXY
+  - GEOSITE,twitter,PROXY
+  - GEOSITE,facebook,PROXY
+  - GEOSITE,instagram,PROXY
+  - GEOSITE,netflix,PROXY
+  - GEOSITE,spotify,PROXY
+  - GEOSITE,reddit,PROXY
+  - GEOSITE,discord,PROXY
+  - GEOSITE,tiktok,PROXY
+
+  # 中国大陆网站与服务直连
+  - GEOSITE,cn,DIRECT
+  - GEOIP,CN,DIRECT,no-resolve
+
+  # 其余未知流量默认代理
+  - MATCH,PROXY
