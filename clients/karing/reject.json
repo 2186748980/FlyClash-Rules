@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "outbound": "block",
+      "domain_suffix": [
+        "doubleclick.net", "googlesyndication.com", "googleadservices.com",
+        "adnxs.com", "adsrvr.org", "adform.net", "scorecardresearch.com",
+        "appsflyer.com", "adjust.com"
+      ]
+    }
+  ]
+}
