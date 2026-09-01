@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>分流规则中心</title><body><h1>分流规则中心</h1><p>多客户端通用规则。选择需要的规则后复制。</p><h2>通用规则</h2><button id="copy">复制全部</button><pre id="rules">DOMAIN-SUFFIX,openai.com,自动选择
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111827"><title>分流规则中心</title><style>body{margin:0;background:#f5f7fb;color:#172033;font:16px system-ui,-apple-system,sans-serif}.wrap{max-width:900px;margin:auto;padding:24px 16px 48px}.sub{color:#667085}.card{background:#fff;border:1px solid #e4e7ec;border-radius:16px;padding:18px;margin:14px 0}.top{display:flex;align-items:center;justify-content:space-between;gap:12px}h2{margin:0}button{border:0;border-radius:10px;padding:10px 14px;background:#111827;color:#fff;font-weight:600}button.ok{background:#067647}textarea{box-sizing:border-box;width:100%;min-height:180px;margin-top:14px;padding:12px;border:1px solid #d0d5dd;border-radius:10px;background:#f8fafc;font:13px ui-monospace,monospace;resize:vertical}.hint{font-size:13px;color:#667085}</style></head><body><main class="wrap"><h1>分流规则中心</h1><p class="sub">多客户端通用规则 · 按客户端选择，点击即可复制</p><section class="card"><div class="top"><h2>FlyClash</h2><button data-copy="flyclash">复制全部</button></div><textarea id="flyclash" readonly>DOMAIN-SUFFIX,openai.com,自动选择
 DOMAIN-SUFFIX,chatgpt.com,自动选择
 DOMAIN-SUFFIX,claude.ai,自动选择
 DOMAIN-SUFFIX,anthropic.com,自动选择
@@ -17,4 +17,34 @@ DOMAIN-SUFFIX,spotify.com,自动选择
 DOMAIN-SUFFIX,tiktok.com,自动选择
 DOMAIN-SUFFIX,doubleclick.net,REJECT
 DOMAIN-SUFFIX,googlesyndication.com,REJECT
-DOMAIN-SUFFIX,googleadservices.com,REJECT</pre><script src="app.js"></script></body></html>
+DOMAIN-SUFFIX,googleadservices.com,REJECT</textarea><p class="hint">代理目标使用“自动选择”；广告使用 REJECT。</p></section><section class="card"><div class="top"><h2>Mihomo / Clash Meta</h2><button data-copy="mihomo">复制全部</button></div><textarea id="mihomo" readonly>payload:
+  - DOMAIN-SUFFIX,openai.com
+  - DOMAIN-SUFFIX,chatgpt.com
+  - DOMAIN-SUFFIX,claude.ai
+  - DOMAIN-SUFFIX,anthropic.com
+  - DOMAIN-SUFFIX,google.com
+  - DOMAIN-SUFFIX,youtube.com
+  - DOMAIN-SUFFIX,telegram.org
+  - DOMAIN-SUFFIX,github.com
+  - DOMAIN-SUFFIX,twitter.com
+  - DOMAIN-SUFFIX,x.com
+  - DOMAIN-SUFFIX,discord.com
+  - DOMAIN-SUFFIX,reddit.com
+  - DOMAIN-SUFFIX,instagram.com
+  - DOMAIN-SUFFIX,facebook.com
+  - DOMAIN-SUFFIX,netflix.com
+  - DOMAIN-SUFFIX,spotify.com
+  - DOMAIN-SUFFIX,tiktok.com</textarea></section><section class="card"><div class="top"><h2>广告拦截</h2><button data-copy="reject">复制全部</button></div><textarea id="reject" readonly>DOMAIN-SUFFIX,doubleclick.net
+DOMAIN-SUFFIX,googlesyndication.com
+DOMAIN-SUFFIX,googleadservices.com
+DOMAIN-SUFFIX,doubleclick.com
+DOMAIN-SUFFIX,adservice.google.com
+DOMAIN-SUFFIX,ads.google.com</textarea></section><section class="card"><div class="top"><h2>AI 服务</h2><button data-copy="ai">复制全部</button></div><textarea id="ai" readonly>DOMAIN-SUFFIX,openai.com
+DOMAIN-SUFFIX,chatgpt.com
+DOMAIN-SUFFIX,oaistatic.com
+DOMAIN-SUFFIX,oaiusercontent.com
+DOMAIN-SUFFIX,claude.ai
+DOMAIN-SUFFIX,anthropic.com
+DOMAIN-SUFFIX,googleapis.com
+DOMAIN-SUFFIX,generativelanguage.googleapis.com
+DOMAIN-SUFFIX,aistudio.google.com</textarea></section></main><script>document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{const e=document.getElementById(b.dataset.copy);try{await navigator.clipboard.writeText(e.value)}catch{e.select();document.execCommand('copy')}const old=b.textContent;b.textContent='已复制';b.classList.add('ok');setTimeout(()=>{b.textContent=old;b.classList.remove('ok')},1200)})</script></body></html>
