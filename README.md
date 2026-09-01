@@ -2,34 +2,53 @@
 
 面向 **FlyClash / Mihomo** 的个人分流与去广告规则仓库。
 
-本仓库不保存任何机场节点、订阅地址、账号、密码或密钥。
+本仓库不保存任何机场节点、订阅地址、账号、密码或 API Key。
 
-## 推荐用法
+## 你如果使用的是 FlyClash Android 的「规则覆写」
 
-如果你的 FlyClash 使用的是 Mihomo 内核，推荐使用 **Rule Provider 方案**：
+如果你的界面是：
+
+> 规则覆写 → 添加新规则 → 规则类型 / 域名 / 目标
+
+那么这里的功能是**逐条添加自定义规则**，不是直接导入整个 YAML。
+
+因此最适合手机端直接录入的是：
+
+`rules/flyclash-essential.txt`
+
+里面已经整理了一套精简、高价值规则，覆盖：
+
+- OpenAI / ChatGPT
+- Claude / Anthropic
+- Gemini / Google AI
+- GitHub
+- YouTube
+- Telegram
+- X / Twitter
+- Discord
+- Reddit
+- Instagram / Facebook
+- Netflix
+- Spotify
+- TikTok
+- 常见广告与跟踪域名
+
+其中 `PROXY` 是占位符。**添加时必须替换成你自己的 FlyClash 代理策略组名称**，例如 `代理`、`Proxy`、`🚀 节点选择` 等。
+
+建议优先添加 AI、Google、Telegram、YouTube 等你实际使用的规则；不需要一次把几十条全部手动录入。
+
+## Mihomo / 完整配置用户
+
+如果你的配置支持 Mihomo `rule-providers`，则推荐使用：
 
 - `config/rule-providers.yaml`：远程规则提供器
-- `config/rules-provider-rules.yaml`：与上述 Provider 配套的 `rules:`
-- `config/rules.yaml`：不依赖远程 Rule Provider 的 GEOSITE 简洁版
-- `config/base-settings.yaml`：GEOSITE / GeoData 可选基础设置
+- `config/rules-provider-rules.yaml`：配套 `rules:`
+- `config/rules.yaml`：简洁的 GEOSITE 方案
+- `config/base-settings.yaml`：基础设置参考
 
-Mihomo 原生支持 `rule-providers`，HTTP Provider 可以按 `interval` 自动更新，支持 `domain` / `ipcidr` / `classical` 等行为，并支持 YAML / text / MRS 格式。
+规则源使用 MetaCubeX 的 MRS 数据，并按 24 小时自动更新。仓库本身只保存公开规则地址，不保存节点。
 
-## 规则逻辑
-
-默认设计为：
-
-1. 广告与常见跟踪域名 → `REJECT`
-2. 局域网 / 私有地址 → `DIRECT`
-3. OpenAI / Google / YouTube / Telegram / GitHub / Twitter / Facebook / Instagram / Netflix / Spotify / Reddit / Discord / TikTok → `PROXY`
-4. 中国大陆域名与中国 IP → `DIRECT`
-5. 其余未知流量 → `PROXY`
-
-**注意：** `PROXY` 只是示例策略组名称。你的 FlyClash 配置如果叫 `Proxy`、`代理`、`🚀 节点选择` 等，需要把规则里的 `PROXY` 替换成自己的策略组名称。
-
-## 直接引用本仓库
-
-主规则 Provider：
+### 远程 Rule Provider
 
 ```text
 https://raw.githubusercontent.com/2186748980/FlyClash-Rules/main/config/rule-providers.yaml
@@ -41,50 +60,45 @@ https://raw.githubusercontent.com/2186748980/FlyClash-Rules/main/config/rule-pro
 https://raw.githubusercontent.com/2186748980/FlyClash-Rules/main/config/rules-provider-rules.yaml
 ```
 
-## 手动合并示例
+## 重要：不要直接把完整 YAML 填进「规则覆写」
 
-在自己的 Mihomo 配置中加入：
+FlyClash Android 某些版本的「规则覆写」只接受单条规则，例如：
 
-```yaml
-rule-anchor:
-  domain: &domain
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-
-rule-providers:
-  ads:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.mrs"
-  openai:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs"
-  telegram:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"
+```text
+DOMAIN-SUFFIX,openai.com,你的代理组
 ```
 
-然后把 `config/rules-provider-rules.yaml` 的 `rules:` 合并进去。
+它不是 `rule-providers` 导入器。因此看到这种界面时，请使用 `rules/flyclash-essential.txt`，或者使用完整 Mihomo 配置编辑/覆写功能（如果你的版本提供）。
+
+## 推荐规则顺序
+
+如果你手动添加规则，通常应让更明确的规则优先于兜底规则：
+
+1. 广告 → `REJECT`
+2. 局域网 / 私有网络 → `DIRECT`
+3. 明确需要代理的国际服务 → 你的代理组
+4. 中国大陆 → `DIRECT`
+5. 最后才使用 `MATCH` 作为兜底
+
+注意：本仓库不建议直接提供一个名为 `PROXY` 的虚拟策略组，因为你的机场配置中实际代理组名称可能不同。
 
 ## 关于 Shadowrocket-ADBlock-Rules-Forever
 
-本项目参考 Johnshall/Shadowrocket-ADBlock-Rules-Forever 的“国内外分流 + 广告过滤”思路，但**不直接使用 Shadowrocket `.conf`**，而是按 Mihomo 的 `RULE-SET` / `rule-providers` 机制重新组织。
+本项目参考 `Johnshall/Shadowrocket-ADBlock-Rules-Forever` 的国内外分流与广告过滤思路，但针对 FlyClash / Mihomo 重新组织规则，不直接把 Shadowrocket `.conf` 当作 FlyClash 配置。
 
 ## 规则来源
 
-主要规则数据来自 MetaCubeX `meta-rules-dat`，其官方 Mihomo 配置示例也采用远程 MRS Rule Provider 的方式。
+主要远程规则数据来自 MetaCubeX `meta-rules-dat`。本仓库只引用公开上游数据，不复制私有节点或账号信息。
 
-- MetaCubeX/meta-rules-dat：`https://github.com/MetaCubeX/meta-rules-dat`
-- Johnshall/Shadowrocket-ADBlock-Rules-Forever：`https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever`
+- MetaCubeX/meta-rules-dat
+- Johnshall/Shadowrocket-ADBlock-Rules-Forever
 
 ## 安全说明
 
-不要把以下内容提交到公开仓库：
+请勿将以下内容提交到公开仓库：
 
 - 机场订阅 URL
 - UUID / 密码 / Token
 - 私有节点配置
 - Clash 密钥或 API Secret
-
-本仓库只存规则和公开的上游规则地址。
+- OpenAI / Anthropic / Gemini API Key
