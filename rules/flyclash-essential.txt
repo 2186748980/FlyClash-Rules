@@ -1,55 +1,55 @@
-# FlyClash 规则覆写 - 精简手动版
+# FlyClash 规则覆写 - 个人版
 # 每行格式：RULE-TYPE,匹配内容,目标
-# 目标请把 PROXY 替换成你 FlyClash 中实际的代理策略组名称。
-# 这些是适合“规则覆写 → 添加新规则”逐条录入的高价值规则。
+# 你的 FlyClash 当前订阅可用代理组：自动选择 / 故障转移 / 宝可梦
+# 本文件统一使用「自动选择」作为国外服务的默认代理组。
+# 广告/跟踪器统一 REJECT。
 
 # ===== AI / 开发 =====
-DOMAIN-SUFFIX,openai.com,PROXY
-DOMAIN-SUFFIX,chatgpt.com,PROXY
-DOMAIN-SUFFIX,oaistatic.com,PROXY
-DOMAIN-SUFFIX,oaiusercontent.com,PROXY
-DOMAIN-SUFFIX,anthropic.com,PROXY
-DOMAIN-SUFFIX,claude.ai,PROXY
-DOMAIN-SUFFIX,googleapis.com,PROXY
-DOMAIN-SUFFIX,generativelanguage.googleapis.com,PROXY
-DOMAIN-SUFFIX,aistudio.google.com,PROXY
-DOMAIN-SUFFIX,github.com,PROXY
-DOMAIN-SUFFIX,githubusercontent.com,PROXY
-DOMAIN-SUFFIX,githubassets.com,PROXY
+DOMAIN-SUFFIX,openai.com,自动选择
+DOMAIN-SUFFIX,chatgpt.com,自动选择
+DOMAIN-SUFFIX,oaistatic.com,自动选择
+DOMAIN-SUFFIX,oaiusercontent.com,自动选择
+DOMAIN-SUFFIX,anthropic.com,自动选择
+DOMAIN-SUFFIX,claude.ai,自动选择
+DOMAIN-SUFFIX,googleapis.com,自动选择
+DOMAIN-SUFFIX,generativelanguage.googleapis.com,自动选择
+DOMAIN-SUFFIX,aistudio.google.com,自动选择
+DOMAIN-SUFFIX,github.com,自动选择
+DOMAIN-SUFFIX,githubusercontent.com,自动选择
+DOMAIN-SUFFIX,githubassets.com,自动选择
 
 # ===== Google / 视频 =====
-DOMAIN-SUFFIX,google.com,PROXY
-DOMAIN-SUFFIX,googleapis.com,PROXY
-DOMAIN-SUFFIX,gstatic.com,PROXY
-DOMAIN-SUFFIX,youtube.com,PROXY
-DOMAIN-SUFFIX,youtu.be,PROXY
-DOMAIN-SUFFIX,ytimg.com,PROXY
-DOMAIN-SUFFIX,googlevideo.com,PROXY
+DOMAIN-SUFFIX,google.com,自动选择
+DOMAIN-SUFFIX,gstatic.com,自动选择
+DOMAIN-SUFFIX,youtube.com,自动选择
+DOMAIN-SUFFIX,youtu.be,自动选择
+DOMAIN-SUFFIX,ytimg.com,自动选择
+DOMAIN-SUFFIX,googlevideo.com,自动选择
 
 # ===== 通讯 / 社交 =====
-DOMAIN-SUFFIX,telegram.org,PROXY
-DOMAIN-SUFFIX,t.me,PROXY
-DOMAIN-SUFFIX,telegram.me,PROXY
-DOMAIN-SUFFIX,twitter.com,PROXY
-DOMAIN-SUFFIX,x.com,PROXY
-DOMAIN-SUFFIX,twimg.com,PROXY
-DOMAIN-SUFFIX,discord.com,PROXY
-DOMAIN-SUFFIX,discordapp.com,PROXY
-DOMAIN-SUFFIX,reddit.com,PROXY
-DOMAIN-SUFFIX,redd.it,PROXY
-DOMAIN-SUFFIX,instagram.com,PROXY
-DOMAIN-SUFFIX,facebook.com,PROXY
-DOMAIN-SUFFIX,fbcdn.net,PROXY
+DOMAIN-SUFFIX,telegram.org,自动选择
+DOMAIN-SUFFIX,t.me,自动选择
+DOMAIN-SUFFIX,telegram.me,自动选择
+DOMAIN-SUFFIX,twitter.com,自动选择
+DOMAIN-SUFFIX,x.com,自动选择
+DOMAIN-SUFFIX,twimg.com,自动选择
+DOMAIN-SUFFIX,discord.com,自动选择
+DOMAIN-SUFFIX,discordapp.com,自动选择
+DOMAIN-SUFFIX,reddit.com,自动选择
+DOMAIN-SUFFIX,redd.it,自动选择
+DOMAIN-SUFFIX,instagram.com,自动选择
+DOMAIN-SUFFIX,facebook.com,自动选择
+DOMAIN-SUFFIX,fbcdn.net,自动选择
 
 # ===== 流媒体 =====
-DOMAIN-SUFFIX,netflix.com,PROXY
-DOMAIN-SUFFIX,nflxvideo.net,PROXY
-DOMAIN-SUFFIX,spotify.com,PROXY
-DOMAIN-SUFFIX,spotifycdn.com,PROXY
-DOMAIN-SUFFIX,tiktok.com,PROXY
-DOMAIN-SUFFIX,tiktokcdn.com,PROXY
+DOMAIN-SUFFIX,netflix.com,自动选择
+DOMAIN-SUFFIX,nflxvideo.net,自动选择
+DOMAIN-SUFFIX,spotify.com,自动选择
+DOMAIN-SUFFIX,spotifycdn.com,自动选择
+DOMAIN-SUFFIX,tiktok.com,自动选择
+DOMAIN-SUFFIX,tiktokcdn.com,自动选择
 
-# ===== 常见广告/追踪（少量高价值域名） =====
+# ===== 常见广告 / 跟踪 =====
 DOMAIN-SUFFIX,doubleclick.net,REJECT
 DOMAIN-SUFFIX,googlesyndication.com,REJECT
 DOMAIN-SUFFIX,googleadservices.com,REJECT
