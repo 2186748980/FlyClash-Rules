@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_suffix": [
+        "openai.com", "chatgpt.com", "anthropic.com", "claude.ai",
+        "ai.google.dev", "aistudio.google.com", "generativelanguage.googleapis.com",
+        "github.com", "githubusercontent.com", "githubassets.com",
+        "youtube.com", "youtu.be", "ytimg.com", "googlevideo.com",
+        "telegram.org", "t.me", "telegram.me", "twitter.com", "x.com", "twimg.com",
+        "discord.com", "discordapp.com", "reddit.com", "redd.it",
+        "instagram.com", "facebook.com", "fbcdn.net",
+        "netflix.com", "nflxvideo.net", "spotify.com", "spotifycdn.com",
+        "tiktok.com", "tiktokcdn.com"
+      ]
+    }
+  ]
+}
