@@ -13,7 +13,7 @@
 - `config/rules.yaml`：不依赖远程 Rule Provider 的 GEOSITE 简洁版
 - `config/base-settings.yaml`：GEOSITE / GeoData 可选基础设置
 
-Mihomo 原生支持 `rule-providers`，HTTP Provider 可以按 `interval` 自动更新，支持 `domain` / `ipcidr` / `classical` 等行为，并支持 YAML / text / MRS 格式。citehttps://wiki.metacubex.one/en/config/rule-providers/
+Mihomo 原生支持 `rule-providers`，HTTP Provider 可以按 `interval` 自动更新，支持 `domain` / `ipcidr` / `classical` 等行为，并支持 YAML / text / MRS 格式。
 
 ## 规则逻辑
 
@@ -73,7 +73,7 @@ rule-providers:
 
 ## 规则来源
 
-主要规则数据来自 MetaCubeX `meta-rules-dat`，其官方 Mihomo 配置示例也采用远程 MRS Rule Provider 的方式。citehttps://wiki.metacubex.one/en/example/conf/
+主要规则数据来自 MetaCubeX `meta-rules-dat`，其官方 Mihomo 配置示例也采用远程 MRS Rule Provider 的方式。
 
 - MetaCubeX/meta-rules-dat：`https://github.com/MetaCubeX/meta-rules-dat`
 - Johnshall/Shadowrocket-ADBlock-Rules-Forever：`https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever`
